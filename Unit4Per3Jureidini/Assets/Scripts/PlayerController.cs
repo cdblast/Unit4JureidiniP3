@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody playerRb;
     public float speed = 5.0f;
+    public float rotationSpeed;
     private GameObject focalPoint;
     public bool hasPowerup;
     private float powerupStrength = 15.0f;
@@ -23,6 +24,8 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         float forwardInput = Input.GetAxis("Vertical");
+        float horizontalInput = Input.GetAxis("Horizontal");
+        transform.Rotate(Vector3.up, horizontalInput * rotationSpeed * Time.deltaTime);
         
         playerRb.AddForce(focalPoint.transform.forward * speed * forwardInput);
         powerupIndicator.transform.position = transform.position + new Vector3(0, -0.5f, 0);
