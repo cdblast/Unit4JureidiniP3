@@ -310,8 +310,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93784afbe8fedff4d81b866ae18abf58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 1587888026754988223, guid: 5d270849f3148e945a4b3080dd78779e, type: 3}
-  powerupPrefab: {fileID: 1849874889}
+  enemyPrefab:
+  - {fileID: 1587888026754988223, guid: 5d270849f3148e945a4b3080dd78779e, type: 3}
+  - {fileID: 1587888026754988223, guid: cdbf59f6ba53587408c1ca80d6aa1602, type: 3}
+  powerupPrefabs:
+  - {fileID: 3553373341888934159, guid: 61bce5a3260a95e40a5e040ca6df8363, type: 3}
+  - {fileID: 6726847752877229561, guid: 0b9460e75df1c394cacd603800c73c81, type: 3}
   enemyCount: 0
   waveNumber: 1
 --- !u!4 &308128204
@@ -362,9 +366,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8428240501f3cd84597d3d2f0e2f78a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  speed: 1.5
   hasPowerup: 0
   powerupIndicator: {fileID: 202265312}
+  currentPowerUp: 0
+  rocketPrefab: {fileID: 0}
 --- !u!54 &1058301881
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -725,11 +731,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 8878a37eb67ddac4ead51890a31d6a18, type: 3}
---- !u!1 &1849874889 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3553373341888934159, guid: 61bce5a3260a95e40a5e040ca6df8363, type: 3}
-  m_PrefabInstance: {fileID: 6521167237699027232}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2009149607
 GameObject:
   m_ObjectHideFlags: 0
