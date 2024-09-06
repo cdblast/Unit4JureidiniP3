@@ -18,6 +18,14 @@ public class PlayerController : MonoBehaviour
     private GameObject tmpRocket;
     private Coroutine powerupCountdown;
 
+    public float hangTime;
+    public float smashSpeed;
+    public float explosionForce;
+    public float explosionRadius;
+
+    bool smashing = false;
+    float floorY;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +44,12 @@ public class PlayerController : MonoBehaviour
         if(currentPowerUp == PowerUpType.Rockets && Input.GetKeyDown(KeyCode.F))
         {
             LaunchRockets();
+        }
+
+        if(currentPowerUp == PowerUpType.Smash && Input.GetKeyDown(KeyCode.Space) && !smashing)
+        {
+            smashing = true;
+            StartCoroutine(Smash());
         }
     }
 
@@ -85,5 +99,44 @@ public class PlayerController : MonoBehaviour
         hasPowerup = false;
         currentPowerUp = PowerUpType.None;
         powerupIndicator.gameObject.SetActive(false);
+    }
+
+    IEnumerator Smash()
+    {
+        var enemies = FindObjectsOfType<Enemy>();
+
+        //Store Y pos before take off
+        floorY = transform.position.y;
+
+        //calculate amount of time going up
+        float jumpTime = Time.time + hangTime;
+
+        while(Time.time < jumpTime)
+        {
+            //move player up while keepign X velocity
+            playerRb.velocity = new Vector2(playerRb.velocity.x, smashSpeed);
+            yield return null;
+        }
+
+        //move player down
+        while(transform.position.y > floorY)
+        {
+            playerRb.velocity = new Vector2(playerRb.velocity.x, -smashSpeed * 2);
+            yield return null;
+        }
+
+        //cycle through all enemies.
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            //apply an explosion force that originates from our position
+            if (enemies[i] != null)
+            {
+                //applye explosion force originating from our position
+                if (enemies[i] != null)
+                    enemies[i].GetComponent<Rigidbody>().AddExplosionForce(explosionForce, transform.position, explosionRadius, 0.0f, ForceMode.Impulse);
+            }
+            //smash end
+            smashing = false;
+        }
     }
 }
